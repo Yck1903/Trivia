@@ -358,7 +358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _quizLoader: {fileID: 1265060441}
-  _quizViewManagerPrefab: {fileID: 3999432844563725242, guid: 3b4f6a9297c57432fa83088c1c7e73d8, type: 3}
+  _quizUiManagerPrefab: {fileID: 295063186442739994, guid: e50214b611b7347d3ac46924fcc31c95, type: 3}
+  _questionPointSo: {fileID: 11400000, guid: 5dc74b3d21f534efa9a9a2d58fd2cf0e, type: 2}
 --- !u!4 &2085059570
 Transform:
   m_ObjectHideFlags: 0

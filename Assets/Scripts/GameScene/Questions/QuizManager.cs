@@ -1,15 +1,17 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class QuizManager : MonoBehaviour
 {
     [SerializeField] private QuizLoader _quizLoader;
-    [SerializeField] private QuizViewManager _quizViewManagerPrefab;
-
+    [SerializeField] private QuizUIManager _quizUiManagerPrefab;
+    [SerializeField] private QuestionPointSo _questionPointSo;
+    
     private QuestionGenerator _questionGenerator;
-    private QuizViewManager _quizViewManager;
-
+    private QuizUIManager _quizUiManager;
+    
     private void Awake()
     {
         Init();
@@ -29,8 +31,8 @@ public class QuizManager : MonoBehaviour
     {
         _questionGenerator = new QuestionGenerator(_quizLoader.GetQuizData());
 
-        _quizViewManager = Instantiate(_quizViewManagerPrefab);
-        _quizViewManager.Init();
+        _quizUiManager = Instantiate(_quizUiManagerPrefab);
+        _quizUiManager.Init();
 
         StartQuestion();
     }
@@ -38,7 +40,7 @@ public class QuizManager : MonoBehaviour
     private void StartQuestion()
     {
         QuestionData currentQuestion = _questionGenerator.GetNextQuestion();
-        _quizViewManager.StartQuestion(currentQuestion);
+        _quizUiManager.StartQuestion(currentQuestion);
     }
 
     private void CheckAnswer(string givenAnswer)
@@ -47,11 +49,11 @@ public class QuizManager : MonoBehaviour
 
         if (currentQuestion.Answer == givenAnswer)
         {
-            _quizViewManager.OnCorrectAnswer(givenAnswer);
+            _quizUiManager.OnCorrectAnswer(givenAnswer, _questionPointSo.CorrectAnswerPoint);
         }
         else
         {
-            _quizViewManager.OnWrongAnswer(currentQuestion.Answer, givenAnswer);
+            _quizUiManager.OnWrongAnswer(currentQuestion.Answer, givenAnswer, _questionPointSo.WrongAnswerPoint);
         }
 
         EndQuestion();
@@ -61,7 +63,7 @@ public class QuizManager : MonoBehaviour
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_quizViewManager.EndQuestion());
+        seq.Append(_quizUiManager.EndQuestion());
         seq.AppendCallback(StartQuestion);
     }
 }
