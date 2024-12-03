@@ -1,25 +1,50 @@
 using System.Collections.Generic;
-using MainScene;
 using UnityEngine;
 
-public class PopupsManager : MonoBehaviour
+namespace Trivia.MainScene.UI
 {
-    [SerializeField] private List<Popup> _popupPrefabs;
-    
-    private List<Popup> _popups = new();
-
-    public void Init()
+    public class PopupsManager : MonoBehaviour
     {
-        GeneratePopups();
-    }
+        public static PopupsManager Instance { get; private set; }
 
-    public void GeneratePopups()
-    {
-        for (var i = 0; i < _popupPrefabs.Count; i++)
+        [SerializeField] private List<Popup> _popupPrefabs;
+
+        private Dictionary<PopupType, Popup> _popupsDict = new();
+
+        public void Init()
         {
-            var popup = Instantiate(_popupPrefabs[i], transform);
-            popup.Init();
-            _popups.Add(popup);
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = this;
+                GeneratePopups();
+            }
+        }
+
+        private void GeneratePopups()
+        {
+            for (var i = 0; i < _popupPrefabs.Count; i++)
+            {
+                var popup = Instantiate(_popupPrefabs[i], transform);
+                popup.Init();
+                _popupsDict[popup.PopupType] = popup;
+            }
+        }
+
+        public Popup GetPopupOfType(PopupType popupType)
+        {
+            if (_popupsDict.TryGetValue(popupType, out Popup popup))
+            {
+                return popup;
+            }
+            else
+            {
+                Debug.LogError("Popup couldn't find. Check popups dict!");
+                return null;
+            }
         }
     }
 }

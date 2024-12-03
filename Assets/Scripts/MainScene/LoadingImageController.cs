@@ -1,8 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class LoadingPanelController : MonoBehaviour
+public class LoadingImageController : MonoBehaviour
 {
     [SerializeField] private Transform _loadingImage;
     private void OnEnable()

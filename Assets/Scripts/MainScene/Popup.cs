@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MainScene
+namespace Trivia.MainScene.UI
 {
     public abstract class Popup : MonoBehaviour
     {

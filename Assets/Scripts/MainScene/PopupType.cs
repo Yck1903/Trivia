@@ -1,4 +1,4 @@
-namespace MainScene
+namespace Trivia.MainScene.UI
 {
     public enum PopupType
     {

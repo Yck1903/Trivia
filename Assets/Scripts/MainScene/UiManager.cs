@@ -1,8 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UiManager : MonoBehaviour
+namespace Trivia.MainScene.UI
 {
-    [SerializeField] private Canvas _canvas;
+    public class UiManager : MonoBehaviour
+    {
+        [SerializeField] private PopupsManager _popupsManager;
+
+        private void Awake()
+        {
+            _popupsManager.Init();
+        }
+    }
 }

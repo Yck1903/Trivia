@@ -22,7 +22,6 @@ public class LeaderboardDataLoader
             var response = await _httpClient.GetStringAsync(url);
 
             var leaderboardData = JsonConvert.DeserializeObject<LeaderboardData>(response);
-            Debug.LogError(leaderboardData.ToString());
             return leaderboardData;
         }
         catch (Exception ex)
